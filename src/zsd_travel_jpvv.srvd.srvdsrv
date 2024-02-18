@@ -1,0 +1,15 @@
+@EndUserText.label: 'Travel'
+define service ZSD_TRAVEL_JPVV {
+  expose z_c_travel_jpvv       as Travel;
+  expose z_c_booking_jpvv      as Booking;
+  expose z_c_booksuppl_jpvv    as BookingSupplement;
+  expose /DMO/I_Supplement     as Supplement;
+  expose /DMO/I_SupplementText as SupplementText;
+  expose /DMO/I_Customer       as Customer;
+  expose /DMO/I_Agency         as Agency;
+  expose /DMO/I_Carrier        as Airline;
+  expose /DMO/I_Connection     as FlightConnections;
+  expose /DMO/I_Flight         as Flight;
+  expose I_Currency            as Currency;
+  expose I_Country             as Country;
+}

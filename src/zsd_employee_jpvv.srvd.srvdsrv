@@ -1,0 +1,4 @@
+@EndUserText.label: 'Employees'
+define service ZSD_EMPLOYEE_JPVV {
+  expose Z_C_EMPLOYEE_JPVV as Employees;
+}

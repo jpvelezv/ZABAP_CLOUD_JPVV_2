@@ -1,0 +1,100 @@
+managed;
+
+//Primera Instancia
+define behavior for z_i_travel_jpvv alias Travel
+implementation in class zbp_i_travel_jpvv unique
+persistent table ztravel_jpvv
+with additional save
+lock master
+authorization master ( instance )
+etag master last_changed_at
+{
+  // administrative fields: read only
+  field ( readonly ) last_changed_at, last_changed_by, created_at, created_by;
+
+  // mandatory fields that are required to create a travel
+  field ( mandatory : create ) agency_id, overall_status, booking_fee, currency_code;
+
+  // dynamic field control
+  field ( features : instance ) travel_id, overall_status;
+  //Framework administra el ID
+  //field(numbering : managed) travel_id;
+
+  create;
+  update;
+  delete;
+
+  // validations
+  validation validateCustomer on save { create; field customer_id; }
+  validation validateDates on save { create; field begin_date, end_date; }
+  validation validateStatus on save { create; field overall_status; }
+
+  //actions
+  action ( features : instance ) acceptTravel result [1] $self;
+  action ( features : instance ) rejectTravel result [1] $self;
+  action createTravelByTemplate result [1] $self;
+
+  association _Booking { create ( features : instance ); }
+
+  //Mapear los campos del CDS con la tabla de BD
+  mapping
+       for ztravel_jpvv corresponding;
+    }
+
+  //Segunda Instancia
+  define behavior for z_i_booking_jpvv alias Booking
+  implementation in class zbp_i_booking_jpvv unique
+  persistent table zbooking_jpvv
+
+  lock dependent by _Travel
+  authorization dependent by _Travel
+  etag master last_change_at
+  {
+    // static fields control
+    field ( readonly ) travel_id;
+
+    // mandatory fields that are required to create a booking
+    field ( mandatory : create ) booking_id, carrier_id, connection_id, flight_date, booking_status;
+
+    update;
+    delete;
+
+    field ( features : instance ) booking_id;
+
+    //validations
+    validation validateStatus on save { create; field booking_status; }
+
+    //determinations
+    determination calculateTotalFlightPrice on modify { field flight_price, currency_code; }
+
+    association _Travel;
+    association _BookingSupplement { create ( features : instance ); }
+
+    //Mapear los campos del CDS con la tabla de BD
+    mapping
+         for zbooking_jpvv corresponding;
+      }
+
+    //Tercera Instancia
+    define behavior for z_i_booksuppl_jpvv alias Supplement
+    implementation in class zbp_i_booksuppl_jpvv unique
+    with unmanaged save
+    lock dependent by _Travel
+    authorization dependent by _Travel
+    etag master last_changed_at
+    {
+      // static fields control
+      field ( readonly ) travel_id, booking_id, booking_supplement_id;
+
+      // mandatory fields that are required to create a supplement
+      field ( mandatory : create ) supplement_id, price;
+      update;
+      delete;
+
+      association _Travel;
+
+      //determinations
+      determination calculateTotalSupplPrice on modify { field price, currency; }
+      mapping
+           for zlog_jpvv corresponding;
+        }

@@ -1,0 +1,85 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+@UI:{ headerInfo: { typeName: 'Employee',
+                    typeNamePlural: 'Employees',
+                    title: { type: #STANDARD,
+                             label: 'Employees',
+                             value: 'EmployeeName' } } }
+annotate view z_c_hcm_master_jpvv with
+{
+  @UI.facet: [{   id: 'Employees',
+                  purpose: #STANDARD,
+                  type: #IDENTIFICATION_REFERENCE,  
+                  label: 'Employee',
+                  position: 10 }]
+  @Search.defaultSearchElement: true
+  @UI: {
+      lineItem: [{ position: 10, label: 'Employee Number', importance: #HIGH }],
+      identification: [{ position: 10, label: 'Employee Number' }] }
+  EmployeeNumber;
+  
+  @UI: {
+      lineItem: [{ position: 20, label: 'Employee Name', importance: #HIGH }],
+      identification: [{ position: 20, label: 'Employee Name' }],
+      selectionField: [{ position: 10 }] }
+  EmployeeName;
+  
+  @UI: {
+      lineItem: [{ position: 20, label: 'Employee Department', importance: #HIGH }],
+      identification: [{ position: 20, label: 'Employee Department' }],
+      selectionField: [{ position: 20 }] }
+  EmployeeDepartment;
+  
+  @UI: {
+      lineItem: [{ position: 30, label: 'Status', importance: #HIGH }],
+      identification: [{ position: 30, label: 'Status' }] }
+  EmployeeStatus;
+  
+  @UI: {
+      lineItem: [{ position: 40, label: 'Job Title', importance: #MEDIUM }],
+      identification: [{ position: 40, label: 'Job Title' }],
+      selectionField: [{ position: 30 }] }
+  JobTitle;
+  
+  @UI: {
+      lineItem: [{ position: 50, label: 'Start Date', importance: #LOW }],
+      identification: [{ position: 50, label: 'Start Date' }] }
+  StartDate;
+  
+  @UI: {
+      lineItem: [{ position: 60, label: 'End Date', importance: #LOW }],
+      identification: [{ position: 60, label: 'End Date' }] }
+  EndDate;
+  
+  @UI: {
+      lineItem: [{ position: 70, label: 'Email', importance: #MEDIUM }],
+      identification: [{ position: 70, label: 'Email' }] }
+  Email;
+  
+  @UI: {
+      lineItem: [{ position: 80, label: 'Manager Number', importance: #HIGH }],
+      identification: [{ position: 80, label: 'Manager Number' }] }
+  ManagerNumber;
+  
+  @UI: {
+      lineItem: [{ position: 90, label: 'Manager Name', importance: #HIGH }],
+      identification: [{ position: 90, label: 'Manager Name' }] }
+  ManagerName;
+  
+  @UI: {
+      lineItem: [{ position: 100, label: 'Manager Department', importance: #MEDIUM }],
+      identification: [{ position: 100, label: ' Manager Department' }] }
+  ManagerDepartment;
+  
+  @UI.hidden: true
+  CreatedOn;
+  
+  @UI.hidden: true
+  CreatedBy;
+  
+  @UI.hidden: true
+  ChangedOn;
+  
+  @UI.hidden: true
+  ChagedBy;
+}

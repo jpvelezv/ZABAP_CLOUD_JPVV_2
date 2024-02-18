@@ -1,0 +1,21 @@
+projection;
+
+define behavior for z_c_atravel_jpvv alias TravelApproval
+use etag
+{
+  // use create;
+  // use update;
+  // use delete;
+
+  use action acceptTravel;
+  use action rejectTravel;
+  // use action createTravelByTemplate;
+  // use association _Booking { create; }
+}
+
+//define behavior for z_c_abooking_log //alias <alias_name>
+//{
+// use update;
+// use delete;
+//
+//}

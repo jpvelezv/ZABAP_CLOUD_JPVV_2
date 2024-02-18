@@ -1,0 +1,10 @@
+projection;
+use draft;
+
+define behavior for Z_C_EMPLOYEE_JPVV alias Employee
+use etag
+{
+  use create;
+  use update;
+  use delete;
+}

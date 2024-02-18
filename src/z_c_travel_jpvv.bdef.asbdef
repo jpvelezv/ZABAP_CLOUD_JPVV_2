@@ -1,0 +1,34 @@
+projection;
+
+define behavior for z_c_travel_jpvv alias TravelProcessor
+use etag
+{
+  field ( readonly ) TotalPrice;
+
+  use create;
+  use update;
+  use delete;
+
+  use action acceptTravel;
+  use action rejectTravel;
+  use action createTravelByTemplate;
+
+  use association _Booking { create; }
+}
+
+define behavior for z_c_booking_jpvv alias BookingProcessor
+{
+  use update;
+  use delete;
+
+  use association _Travel;
+  use association _BookingSupplement { create; }
+}
+
+define behavior for z_c_booksuppl_jpvv alias SupplementProcessor
+{
+  use update;
+  use delete;
+
+  use association _Travel;
+}
